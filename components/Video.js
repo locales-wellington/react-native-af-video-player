@@ -437,7 +437,8 @@ class Video extends Component {
 Video.propTypes = {
   url: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number
+    PropTypes.number,
+    PropTypes.object
   ]).isRequired,
   placeholder: PropTypes.oneOfType([
     PropTypes.string,
@@ -504,7 +505,7 @@ Video.defaultProps = {
   title: '',
   theme: defaultTheme,
   resizeMode: 'contain',
-  controlsVisible: false
+  controlsVisible: true
 }
 
 export default Video
