@@ -64,7 +64,8 @@ class Video extends Component {
       progress: 0,
       currentTime: 0,
       seeking: false,
-      renderError: false
+      renderError: false,
+      resizeMode: 'contain'
     }
     this.animInline = new Animated.Value(Win.width * 0.5625)
     this.animFullscreen = new Animated.Value(Win.width * 0.5625)
@@ -100,6 +101,7 @@ class Video extends Component {
       loading: false,
       inlineHeight,
       duration: data.duration
+      resizeMode: this.props.resizeMode
     }, () => {
       Animated.timing(this.animInline, { toValue: inlineHeight, duration: 200 }).start()
       this.props.onPlay(!this.state.paused)
@@ -334,7 +336,8 @@ class Video extends Component {
       progress,
       duration,
       inlineHeight,
-      currentTime
+      currentTime,
+      resizeMode,
     } = this.state
 
     const {
@@ -348,7 +351,6 @@ class Video extends Component {
       placeholder,
       theme,
       onTimedMetadata,
-      resizeMode,
       onMorePress,
       inlineOnly,
       playInBackground,
