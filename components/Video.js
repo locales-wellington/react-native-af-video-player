@@ -352,7 +352,8 @@ class Video extends Component {
       onMorePress,
       inlineOnly,
       playInBackground,
-      playWhenInactive
+      playWhenInactive,
+      controlsVisible
     } = this.props
 
     const inline = {
@@ -375,7 +376,7 @@ class Video extends Component {
           fullScreen ? null : style
         ]}
       >
-        <StatusBar hidden={fullScreen} />
+          { controlsVisible && <StatusBar hidden={fullScreen} /> }
         {
           ((loading && placeholder) || currentTime < 0.01) &&
           <Image resizeMode="cover" style={styles.image} {...checkSource(placeholder)} />
@@ -401,7 +402,7 @@ class Video extends Component {
           // onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
           onTimedMetadata={e => onTimedMetadata(e)} // Callback when the stream receive some metadata
         />
-        <Controls
+        { controlsVisible && <Controls
           ref={(ref) => { this.controls = ref }}
           toggleMute={() => this.toggleMute()}
           toggleFS={() => this.toggleFS()}
@@ -422,6 +423,7 @@ class Video extends Component {
           theme={setTheme}
           inlineOnly={inlineOnly}
         />
+        }
       </Animated.View>
     )
   }
@@ -471,7 +473,8 @@ Video.propTypes = {
   logo: PropTypes.string,
   title: PropTypes.string,
   theme: PropTypes.object,
-  resizeMode: PropTypes.string
+  resizeMode: PropTypes.string,
+  controlsVisible: PropTypes.bool
 }
 
 Video.defaultProps = {
@@ -500,7 +503,8 @@ Video.defaultProps = {
   logo: undefined,
   title: '',
   theme: defaultTheme,
-  resizeMode: 'contain'
+  resizeMode: 'contain',
+  controlsVisible: false
 }
 
 export default Video
