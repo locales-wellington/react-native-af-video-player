@@ -100,7 +100,7 @@ class Video extends Component {
       paused: !this.props.autoPlay,
       loading: false,
       inlineHeight,
-      duration: data.duration
+      duration: data.duration,
       resizeMode: this.props.resizeMode
     }, () => {
       Animated.timing(this.animInline, { toValue: inlineHeight, duration: 200 }).start()
