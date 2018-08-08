@@ -301,11 +301,12 @@ class Video extends Component {
   progress(time) {
     const { currentTime } = time
     const progress = currentTime / this.state.duration
-    if (!this.state.seeking) {
+      if (this.state.seeking && this.props.controlsVisible) {
+        return;
+      }
       this.setState({ progress, currentTime }, () => {
         this.props.onProgress(time)
       })
-    }
   }
 
   renderError() {
