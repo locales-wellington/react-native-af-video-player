@@ -55,7 +55,7 @@ class Video extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      paused: !props.autoPlay,
+      paused: props.paused,
       muted: false,
       fullScreen: false,
       inlineHeight: Win.width * 0.5625,
@@ -71,6 +71,12 @@ class Video extends Component {
     this.BackHandler = this.BackHandler.bind(this)
     this.onRotated = this.onRotated.bind(this)
   }
+
+    componentWillReceiveProps (newProps) {
+      this.setState({
+          paused: newProps.paused
+      });
+    }
 
   componentDidMount() {
     Dimensions.addEventListener('change', this.onRotated)
@@ -96,7 +102,6 @@ class Video extends Component {
       (Win.width / this.props.lockRatio)
       : (Win.width * ratio)
     this.setState({
-      paused: !this.props.autoPlay,
       loading: false,
       inlineHeight,
       duration: data.duration,
@@ -453,7 +458,6 @@ Video.propTypes = {
     PropTypes.object
   ]),
   loop: PropTypes.bool,
-  autoPlay: PropTypes.bool,
   inlineOnly: PropTypes.bool,
   fullScreenOnly: PropTypes.bool,
   playInBackground: PropTypes.bool,
@@ -483,7 +487,6 @@ Video.defaultProps = {
   style: {},
   error: true,
   loop: false,
-  autoPlay: false,
   inlineOnly: false,
   fullScreenOnly: false,
   playInBackground: false,
